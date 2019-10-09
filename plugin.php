@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: Block Extend
- * Description: Extend Gutenberg editor blocks.
+ * Plugin Name: VK AMP Validation Block
+ * Description: Block to show total number of AMP errors.
  * Version: 0.1.0
- * Author: XWP
- * Author URI: https://xwp.co
- * Text Domain: block-extend
+ * Author: Vishal Kakadiya
+ * Author URI: https://github.com/vishalkakadiya
+ * Text Domain: vk-amp-validation-block
  */
 
 namespace XWP\BlockExtend;
