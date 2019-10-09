@@ -25,6 +25,8 @@ class BlockExtendPluginTest extends BlockExtendTestCase {
 
 		WP_Mock::expectActionAdded( 'enqueue_block_editor_assets', [ $plugin, 'enqueue_editor_assets' ], 10, 1 );
 
+		WP_Mock::expectActionAdded( 'init', [ $plugin, 'register_block' ], 10, 1 );
+
 		$plugin->init();
 	}
 
@@ -57,4 +59,51 @@ class BlockExtendPluginTest extends BlockExtendTestCase {
 		$block_extend = new BlockExtendPlugin( $plugin );
 		$block_extend->enqueue_editor_assets();
 	}
+
+	/**
+	 * Test register_block.
+	 *
+	 * @covers XWP\BlockExtend\BlockExtendPlugin::register_block()
+	 */
+	public function test_register_block() {
+
+		$plugin = Mockery::mock( Plugin::class );
+
+		$block_extend = new BlockExtendPlugin( $plugin );
+
+		WP_Mock::userFunction( 'register_block_type' )
+		       ->once()
+		       ->with(
+			       'vk/amp-validate-block',
+			       [
+				       'render_callback' => [ $block_extend, 'render_block' ],
+			       ]
+		       );
+
+		$block_extend->register_block();
+	}
+
+	/**
+	 * Test render_block.
+	 *
+	 * @covers XWP\BlockExtend\BlockExtendPlugin::render_block()
+	 */
+	public function test_render_block() {
+
+		$plugin = Mockery::mock( Plugin::class );
+
+		$block_extend = new BlockExtendPlugin( $plugin );
+
+		WP_Mock::userFunction( 'register_block_type' )
+		       ->once()
+		       ->with(
+			       'vk/amp-validate-block',
+			       [
+				       'render_callback' => [ $block_extend, 'render_block' ],
+			       ]
+		       );
+
+		$block_extend->render_block();
+	}
+
 }
